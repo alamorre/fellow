@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
-import { Button } from 'antd'
+import { Grid } from './board'
 
 export default class App extends Component {
   render() {
     return (
-      <Button>React simple starter</Button>
+      <Grid />
     );
   }
 }
