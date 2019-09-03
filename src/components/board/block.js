@@ -1,8 +1,95 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import { Icon } from 'antd'
 
 class Block extends Component {
+  /**
+  * This function will count the adjacent mines to an index
+  */
+  countAdjacentMines(block){
+    const { index } = block
+    const { game } = this.props
+
+    var count = 0
+
+    // Check top left
+    if(index > 9 && index % 10 !== 0){
+      const topLeft = index - 11
+      if(game.blocks[topLeft].is_mine){
+        count = count + 1
+      }
+    }
+
+    // Check top
+    if(index > 9){
+      const top = index - 10
+      if(game.blocks[top].is_mine){
+        count = count + 1
+      }
+    }
+
+    // Check top right
+    if(index > 9 && index % 10 !== 9){
+      const topRight = index - 9
+      if(game.blocks[topRight].is_mine){
+        count = count + 1
+      }
+    }
+
+    // Check left
+    if(index % 10 !== 0){
+      const left = index - 1
+      if(game.blocks[left].is_mine){
+        count = count + 1
+      }
+    }
+
+    // Check left
+    if(index % 10 !== 9){
+      const right = index + 1
+      if(game.blocks[right].is_mine){
+        count = count + 1
+      }
+    }
+
+    // Check bottom left
+    if(index < 90 && index % 10 !== 0){
+      const bottomLeft = index + 9
+      if(game.blocks[bottomLeft].is_mine){
+        count = count + 1
+      }
+    }
+
+    // Check bottom left
+    if(index < 90 && index % 10 !== 0){
+      const bottomLeft = index + 9
+      if(game.blocks[bottomLeft].is_mine){
+        count = count + 1
+      }
+    }
+
+    // Check bottom left
+    if(index < 90){
+      const bottom = index + 10
+      if(game.blocks[bottom].is_mine){
+        count = count + 1
+      }
+    }
+
+    // Check bottom left
+    if(index < 90 && index % 10 !== 9){
+      const bottomRight = index + 11
+      if(game.blocks[bottomRight].is_mine){
+        count = count + 1
+      }
+    }
+
+    // Return the count
+    return count
+  }
+
   render(){
     const { block } = this.props
 
@@ -18,7 +105,7 @@ class Block extends Component {
 
       } else { // Else render the block with a number or nothing
         return(
-          <div style={ styles.flipped }> 2 { block.is_mine && 'x' } </div>
+          <div style={ styles.flipped }> { this.countAdjacentMines(block) } { block.is_mine && 'x' } </div>
         )
       }
     }
@@ -26,7 +113,7 @@ class Block extends Component {
     // Handle flipped
     if(block.is_flagged){
       return(
-        <div style={ styles.block }>
+        <div style={ styles.unflipped }>
           <Icon type="flag" style={{ fontSize: '20px' }} />
           { block.is_mine && 'x' }
         </div>
@@ -41,14 +128,6 @@ class Block extends Component {
 }
 
 const styles = {
-  block: {
-    width: '100%',
-    height: '32px',
-    paddingTop: '4px',
-    textAlign: 'center',
-    background: '#e8e8e8',
-    border: '1px solid black'
-  },
   flipped: {
     width: '100%',
     height: '32px',
@@ -68,4 +147,12 @@ const styles = {
   }
 }
 
-export default Block
+function mapStateToProps(state){
+  return { game: state.game }
+}
+
+function mapDispatchToProps(dispatch){
+return bindActionCreators({  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Block)
