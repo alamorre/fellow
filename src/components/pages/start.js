@@ -9,9 +9,7 @@ class Start extends Component {
   /**
   * This function handles when a user gets started
   */
-  onGetStarted(){
-    console.log( newGame( () => {}, () => {}) )
-  }
+  onGetStarted(){}
 
   render(){
 
