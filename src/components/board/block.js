@@ -103,20 +103,17 @@ class Block extends Component {
     const mineCount = this.countAdjacentMines(block)
 
     // Handle flipped
-    if(block.is_flipped){
-      if(block.is_mine){ // You lose if it's a mine
-        return(
-          <div style={ styles.flipped }>
-            <Icon type="close-circle" style={{ fontSize: '20px', color: 'red' }} />
-            { block.is_mine && 'x' }
-          </div>
-        )
+    if(block.is_flipped && !block.is_mine){
+      return(
+        <div style={ styles.flipped }> { mineCount > 0 && mineCount } { block.is_mine && 'x' } </div>
+      )
+    }
 
-      } else { // Else render the block with a number or nothing
-        return(
-          <div style={ styles.flipped }> { mineCount > 0 && mineCount } { block.is_mine && 'x' } </div>
-        )
-      }
+    // If the user has lost, show all mines
+    if(this.props.progress.hasLost && block.is_mine){
+      <div style={ styles.flipped }>
+        <Icon type="fire" style={{ fontSize: '20px', color: 'red' }} />
+      </div>
     }
 
     // Handle flipped
@@ -135,7 +132,7 @@ class Block extends Component {
         style={ styles.unflipped }
         onClick={this.onFlip.bind(this, block)}
         onContextMenu={this.onFlag.bind(this, block)}>
-        { block.is_mine && 'x' }
+        { block.is_mine && 'xx' }
       </div>
     )
   }
@@ -162,7 +159,10 @@ const styles = {
 }
 
 function mapStateToProps(state){
-  return { game: state.game }
+  return {
+    game: state.game,
+    progress: state.progress
+  }
 }
 
 function mapDispatchToProps(dispatch){
