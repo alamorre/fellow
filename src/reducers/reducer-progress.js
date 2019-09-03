@@ -1,6 +1,6 @@
 import * as str from '../actions'
 import history from '../functions/history'
-import { hasLost, countMinesLeft } from '../functions/progress'
+import { hasWon, hasLost, countMinesLeft } from '../functions/progress'
 
 const initialState = {
   minesLeft: 12,
@@ -17,7 +17,7 @@ export default function(state = initialState, action){
         ...state,
         minesLeft: countMinesLeft(action.payload),
         hasLost: hasLost(action.payload),
-        hasWon: false
+        hasWon: hasWon(action.payload)
       };
 
     // If missed, change nothing

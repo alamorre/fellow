@@ -105,23 +105,28 @@ class Block extends Component {
     // Handle flipped
     if(block.is_flipped && !block.is_mine){
       return(
-        <div style={ styles.flipped }> { mineCount > 0 && mineCount } { block.is_mine && 'x' } </div>
+        <div style={ styles.flipped }>
+          { mineCount > 0 && mineCount }
+        </div>
       )
     }
 
     // If the user has lost, show all mines
     if(this.props.progress.hasLost && block.is_mine){
-      <div style={ styles.flipped }>
-        <Icon type="fire" style={{ fontSize: '20px', color: 'red' }} />
-      </div>
+      return(
+        <div style={ styles.flipped }>
+          <Icon type="fire" style={{ fontSize: '20px', color: 'red' }} />
+        </div>
+      )
     }
 
     // Handle flipped
     if(block.is_flagged){
       return(
-        <div style={ styles.unflipped } onContextMenu={this.onFlag.bind(this, block)}>
+        <div
+          onContextMenu={this.onFlag.bind(this, block)}
+          style={ this.props.progress.hasWon ? styles.winner : styles.unflipped }>
           <Icon type="flag" style={{ fontSize: '20px' }} />
-          { block.is_mine && 'x' }
         </div>
       )
     }
@@ -131,9 +136,7 @@ class Block extends Component {
       <div
         style={ styles.unflipped }
         onClick={this.onFlip.bind(this, block)}
-        onContextMenu={this.onFlag.bind(this, block)}>
-        { block.is_mine && 'xx' }
-      </div>
+        onContextMenu={this.onFlag.bind(this, block)} />
     )
   }
 }
@@ -154,6 +157,15 @@ const styles = {
     paddingTop: '4px',
     textAlign: 'center',
     background: '#e8e8e8',
+    border: '1px solid black',
+  },
+  winner: {
+    width: '100%',
+    height: '32px',
+    cursor: 'pointer',
+    paddingTop: '4px',
+    textAlign: 'center',
+    background: '#d9f7be',
     border: '1px solid black',
   }
 }

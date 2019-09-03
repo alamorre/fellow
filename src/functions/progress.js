@@ -35,3 +35,25 @@ export function hasLost(game){
   // Return results
   return hasLost
 }
+
+/**
+* This function checks if the user has won
+*/
+export function hasWon(game){
+  // Start off as won
+  var hasWon = true
+  const allBlocks = game.blocks ? game.blocks : []
+
+  // Find any exception to detemine the user has not won
+  allBlocks.map(block => {
+    if(block.is_mine && !block.is_flagged){
+      hasWon = false
+    }
+    if(!block.is_mine && !block.is_flipped){
+      hasWon = false
+    }
+  })
+
+  // Return results
+  return hasWon
+}
