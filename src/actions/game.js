@@ -40,7 +40,7 @@ export const fetchGame = (id, successFunc, errorFunc) => dispatch =>  {
     url: `${str.ROOT_URL}/games/${id}/`
   })
 
-  // Handle the new data locally in s callback
+  // Handle the new data locally in a callback
   request.then((response) => {
     // Update the new game in redux
     dispatch({
@@ -56,5 +56,55 @@ export const fetchGame = (id, successFunc, errorFunc) => dispatch =>  {
   .catch((error) => {
     console.log(error)
     errorFunc(error.response.data)
+  })
+}
+
+/**
+* This function will flip a block and then update the game state
+*/
+export const flipBlock = (data) => dispatch =>  {
+  // Make the API request
+  const request = axios({
+    method: 'PATCH',
+    url: `${str.ROOT_URL}/games/blocks/${data.id}/`,
+    data: data
+  })
+
+  // Handle the new data locally in a callback
+  request.then((response) => {
+    dispatch({
+      type: str.NEW_GAME,
+      payload: response.data
+    })
+  })
+
+  // Handle the request error locally in s callback
+  .catch((error) => {
+    console.log(error)
+  })
+}
+
+/**
+* This function will flag a block and then update the game state
+*/
+export const flagBlock = (data) => dispatch =>  {
+  // Make the API request
+  const request = axios({
+    method: 'PATCH',
+    url: `${str.ROOT_URL}/games/blocks/${data.id}/`,
+    data: data
+  })
+
+  // Handle the new data locally in a callback
+  request.then((response) => {
+    dispatch({
+      type: str.NEW_GAME,
+      payload: response.data
+    })
+  })
+
+  // Handle the request error locally in s callback
+  .catch((error) => {
+    console.log(error)
   })
 }

@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+// Import functions
+import { flipBlock, flagBlock } from '../../actions/game'
+
+// Import components
 import { Icon } from 'antd'
 
 class Block extends Component {
@@ -63,14 +67,6 @@ class Block extends Component {
     }
 
     // Check bottom left
-    if(index < 90 && index % 10 !== 0){
-      const bottomLeft = index + 9
-      if(game.blocks[bottomLeft].is_mine){
-        count = count + 1
-      }
-    }
-
-    // Check bottom left
     if(index < 90){
       const bottom = index + 10
       if(game.blocks[bottom].is_mine){
@@ -88,6 +84,18 @@ class Block extends Component {
 
     // Return the count
     return count
+  }
+
+  // Send data that toggles the flag
+  onFlag(block){
+    const data = { id: block.id, is_flagged: !block.is_flagged }
+    this.props.flagBlock(data)
+  }
+
+  // Set is flagged to true
+  onFlip(block){
+    const data = { id: block.id, is_flipped: true }
+    this.props.flipBlock(data)
   }
 
   render(){
@@ -113,7 +121,7 @@ class Block extends Component {
     // Handle flipped
     if(block.is_flagged){
       return(
-        <div style={ styles.unflipped }>
+        <div style={ styles.unflipped } onContextMenu={this.onFlag.bind(this, block)}>
           <Icon type="flag" style={{ fontSize: '20px' }} />
           { block.is_mine && 'x' }
         </div>
@@ -122,7 +130,12 @@ class Block extends Component {
 
     // Handle empty block
     return(
-      <div style={ styles.unflipped }>{ block.is_mine && 'x' }</div>
+      <div
+        style={ styles.unflipped }
+        onClick={this.onFlip.bind(this, block)}
+        onContextMenu={this.onFlag.bind(this, block)}>
+        { block.is_mine && 'x' }
+      </div>
     )
   }
 }
@@ -152,7 +165,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-return bindActionCreators({  }, dispatch)
+return bindActionCreators({ flipBlock, flagBlock }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Block)
