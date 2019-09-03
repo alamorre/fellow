@@ -4,15 +4,15 @@ import React, { Component } from 'react';
 import { Router, Route, Switch } from 'react-router-dom'
 import { createBrowserHistory } from 'history';
 
-import { Grid } from './board'
+import { Game, Start } from './pages'
 
 export default class App extends Component {
   render() {
     return (
       <Router history={createBrowserHistory()}>
         <Switch>
-          <Route path='/:id' component={Grid} />
-          <Route path='/' component={Grid} />
+          <Route path='/:id' component={Game} />
+          <Route path='/' component={Start} />
         </Switch>
       </Router>
     );
