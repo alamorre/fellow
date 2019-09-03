@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 
 // Import functions
 import { flipBlock, flagBlock } from '../../actions/game'
+import { ErrorNotification } from '../notifications'
 
 // Import components
 import { Icon } from 'antd'
@@ -88,12 +89,30 @@ class Block extends Component {
 
   // Send data that toggles the flag
   onFlag(block){
+    // Make sure the user is allowed to flag
+    if(this.props.progress.hasWon || this.props.progress.hasLost){
+      ErrorNotification('The game is over...')
+      return;
+    }
+    if(this.props.progress.minesLeft === 0){
+      ErrorNotification('Oops! You have not more mines left, free one up!')
+      return;
+    }
+
+    // If so, send a flag API call
     const data = { id: block.id, is_flagged: !block.is_flagged }
     this.props.flagBlock(data)
   }
 
   // Set is flagged to true
   onFlip(block){
+    // Make sure the user is allowed to flip
+    if(this.props.progress.hasWon || this.props.progress.hasLost){
+      ErrorNotification('The game is over...')
+      return;
+    }
+
+    // If so, send a flip API call
     const data = { id: block.id, is_flipped: true }
     this.props.flipBlock(data)
   }
@@ -124,7 +143,7 @@ class Block extends Component {
     if(block.is_flagged){
       return(
         <div
-          onContextMenu={this.onFlag.bind(this, block)}
+          onContextMenu={ (e) => { e.preventDefault(); this.onFlag(block);} }
           style={ this.props.progress.hasWon ? styles.winner : styles.unflipped }>
           <Icon type="flag" style={{ fontSize: '20px' }} />
         </div>
@@ -136,7 +155,7 @@ class Block extends Component {
       <div
         style={ styles.unflipped }
         onClick={this.onFlip.bind(this, block)}
-        onContextMenu={this.onFlag.bind(this, block)} />
+        onContextMenu={ (e) => { e.preventDefault(); this.onFlag(block);} } />
     )
   }
 }
@@ -146,6 +165,7 @@ const styles = {
     width: '100%',
     height: '32px',
     fontSize: '20px',
+    fontWeight: '600',
     background: '#fff',
     textAlign: 'center',
     border: '1px solid black',
