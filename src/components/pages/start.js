@@ -11,15 +11,18 @@ class Start extends Component {
   /**
   * This function handles when a user gets started
   */
-  onGetStarted(){
-    this.props.newGame(() => {}, () => {})
+  componentDidMount(){
+    this.props.newGame(
+      (data) => history.push(`/${data.id}`),
+      () => {}
+    )
   }
 
   render(){
     return(
-      <Button onClick={this.onGetStarted.bind(this)}>
+      <div>
         Get Started!
-      </Button>
+      </div>
     )
   }
 }

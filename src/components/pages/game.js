@@ -4,8 +4,10 @@ import { Grid } from '../board'
 
 class Game extends Component {
   render(){
+    const { id } = this.props.match.params
+
     return(
-      <Grid/>
+      <Grid gameID={id} />
     )
   }
 }

@@ -1,29 +1,64 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-// Handle the imported components from Ant Design
+// Import the needed actions
+import { fetchGame } from '../../actions/game'
+
+// Import the imported and developed components
+import Block from './block'
 import { Row, Col } from 'antd';
 
 class Grid extends Component {
+  componentDidMount(){
+    // Fetch the game if it's not it redux state
+    if(!this.props.game.id && this.props.gameID){
+      this.props.fetchGame(this.props.gameID, () => {}, () => {})
+    }
+  }
+
+
+  renderBlocks(blocks){
+    return blocks.map((block, index) => {
+      return (
+        <div key={`block-${index}`}>
+          {/* Render the column offset for each row */}
+          { index % 10 === 0 && <Col lg={7} md={2}/> }
+
+          {/* Render the block */}
+          <Col lg={1} md={2} sm={2} xs={2}>
+            <Block block={block} />
+          </Col>
+
+          {/* Render new row after 10 blocks */}
+          { index % 10 === 9 && <Col lg={7} md={2} style={{ height: '32px' }}/> }
+        </div>
+      )
+    })
+  }
+
   render() {
+    const { game } = this.props
+
+    if(!this.props.game.blocks){
+      return <div>Loading...</div>
+    }
+
     return(
       <Row>
-        {/* Column offset */}
-        <Col lg={7} md={2}/>
-
         {/* 10 Blocks in this row */}
-        <Col lg={1} md={2} sm={2} xs={2}> 0 </Col>
-        <Col lg={1} md={2} sm={2} xs={2}> 1 </Col>
-        <Col lg={1} md={2} sm={2} xs={2}> 2 </Col>
-        <Col lg={1} md={2} sm={2} xs={2}> 3 </Col>
-        <Col lg={1} md={2} sm={2} xs={2}> 4 </Col>
-        <Col lg={1} md={2} sm={2} xs={2}> 5 </Col>
-        <Col lg={1} md={2} sm={2} xs={2}> 6 </Col>
-        <Col lg={1} md={2} sm={2} xs={2}> 7 </Col>
-        <Col lg={1} md={2} sm={2} xs={2}> 8 </Col>
-        <Col lg={1} md={2} sm={2} xs={2}> 9 </Col>
+        {this.renderBlocks(game.blocks)}
       </Row>
     )
   }
 }
 
-export default Grid
+function mapStateToProps(state){
+  return { game: state.game }
+}
+
+function mapDispatchToProps(dispatch){
+  return bindActionCreators({ fetchGame }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Grid)
