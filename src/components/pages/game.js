@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 
-import { Grid } from '../board'
+import { Grid, TopBar } from '../board'
 
 class Game extends Component {
   render(){
     const { id } = this.props.match.params
 
     return(
-      <Grid gameID={id} />
+      <div>
+        <TopBar />
+        <Grid gameID={id} />
+      </div>
     )
   }
 }

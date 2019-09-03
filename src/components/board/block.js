@@ -100,6 +100,7 @@ class Block extends Component {
 
   render(){
     const { block } = this.props
+    const mineCount = this.countAdjacentMines(block)
 
     // Handle flipped
     if(block.is_flipped){
@@ -113,7 +114,7 @@ class Block extends Component {
 
       } else { // Else render the block with a number or nothing
         return(
-          <div style={ styles.flipped }> { this.countAdjacentMines(block) } { block.is_mine && 'x' } </div>
+          <div style={ styles.flipped }> { mineCount > 0 && mineCount } { block.is_mine && 'x' } </div>
         )
       }
     }
