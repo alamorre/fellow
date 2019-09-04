@@ -23,7 +23,7 @@ yarn install
 yarn start
 ```
 
-you can expect the project to be running on http://localhost:8080 locally.
+You can expect the project to be running on http://localhost:8080 locally.
 
 ### Running Automation Tests
 Once you have the project running, you can run the automation tests.
