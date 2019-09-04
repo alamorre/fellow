@@ -63,7 +63,7 @@ class Block extends Component {
     // 1. Handle flipped blocks
     if(block.is_flipped && !block.is_mine){
       return(
-        <div style={ styles.flipped }>
+        <div style={ styles.flipped } id={`block-${block.index}`}>
           { mineCount > 0 && mineCount }
         </div>
       )
@@ -72,7 +72,7 @@ class Block extends Component {
     // 2. Handle flipped mines (render all at once)
     if(this.props.progress.hasLost && block.is_mine){
       return(
-        <div style={ styles.flipped }>
+        <div style={ styles.flipped } id={`block-${block.index}`}>
           <Icon type="fire" style={{ fontSize: '20px', color: 'red' }} />
         </div>
       )
@@ -82,6 +82,7 @@ class Block extends Component {
     if(block.is_flagged){
       return(
         <div
+          id={`block-${block.index}`}
           onContextMenu={ (e) => { e.preventDefault(); this.onFlag(block);} }
           style={ this.props.progress.hasWon ? styles.winner : styles.unflipped }>
           <Icon type="flag" style={{ fontSize: '20px' }} />
@@ -92,6 +93,7 @@ class Block extends Component {
     // 4. Handle unflipped blocks
     return(
       <div
+        id={`block-${block.index}`}
         style={ styles.unflipped }
         onClick={this.onFlip.bind(this, block)}
         onContextMenu={ (e) => { e.preventDefault(); this.onFlag(block);} } />

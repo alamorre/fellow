@@ -52,6 +52,9 @@ module.exports = {
     });
 
     // Try clicking an element
-    
+    browser
+      .click('#block-99')
+      .waitForElementVisible('.ant-notification-notice', 3500, 'Assert you cannot flip anything')
+      .pause(8000); // Wait for notice to go away
   }
 }
