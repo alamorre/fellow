@@ -27,9 +27,17 @@ class TopBar extends Component {
           <span
             onClick={() => history.push('/')}
             style={{ fontSize: '20px', float: 'right', cursor: 'pointer' }}>
-            { gameLoading && <Icon type="loading" /> }
-            { (!gameLoading && game.has_lost) && <Icon id='game-lost-icon' type="frown" /> }
-            { (!gameLoading && !game.has_lost) && <Icon id='game-okay-icon' type="smile" /> }
+            {
+              gameLoading && <Icon type="loading" />
+            }
+            {
+              (!gameLoading && game.has_lost) &&
+              <Icon id='game-lost-icon' theme='twoTone' twoToneColor="#f5222d" type="frown" />
+            }
+            {
+              (!gameLoading && !game.has_lost) &&
+              <Icon id='game-okay-icon' theme='twoTone' twoToneColor={game.has_won ? '#52c41a' : '#1890ff'} type="smile" />
+            }
           </span>
         </Col>
 

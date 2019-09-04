@@ -73,7 +73,7 @@ class Block extends Component {
     if(this.props.game.has_lost && block.is_mine){
       return(
         <div style={ styles.flipped } id={`block-${block.index}`}>
-          <Icon type="fire" style={{ fontSize: '20px', color: 'red' }} />
+          <Icon type="fire" theme="twoTone" twoToneColor="#f5222d" style={{ fontSize: '20px' }} />
         </div>
       )
     }
