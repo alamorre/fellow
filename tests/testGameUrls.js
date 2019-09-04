@@ -1,21 +1,17 @@
 var savedUrl = '';
 
 module.exports = {
-  "tags": ["new", "root"],
+  "tags": ["new", "root", "share", "url"],
 
   /**
-   * Test if bad credentials are correctly caught and can be recovered from
-   * 1. Try bad email and good password
-   * 2. Try good email and bad password
+   * Test if new games can be created and recovered from their URL
    */
-  'Can create a new game URL and share it': function(browser) {
-     0;
-
+  'Can create a new game URL and share its URL': function(browser) {
+    // Go to the origional page
     browser
-      // Go to the origional page
       .url(`http://localhost:8080`)
       .waitForElementVisible('#page-loader', 2000, 'Assert the page starts by loading')
-      .pause(5000); // Pause for the redirect
+      .pause(3500); // Pause for the redirect
 
     // Save the game ID from url
     let gameID;
@@ -32,7 +28,7 @@ module.exports = {
     // Refresh the page
     browser
       .refresh()
-      .pause(5000);
+      .pause(3500);
 
     // Save the game ID from url
     browser.url(function(result) {
