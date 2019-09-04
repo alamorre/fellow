@@ -61,7 +61,9 @@ class Block extends Component {
     // 1. Handle flipped blocks
     if(block.is_flipped && !block.is_mine){
       return(
-        <div style={ styles.flipped } id={`block-${block.index}`}>
+        <div
+          style={ styles.flipped }
+          className={`block-${block.index} flip-${block.index}`}>
           <div style={ styles[block.nearby_mines] }>
             { (block.nearby_mines && block.nearby_mines > 0) && block.nearby_mines }
           </div>
@@ -72,7 +74,9 @@ class Block extends Component {
     // 2. Handle flipped mines (render all at once)
     if(this.props.game.has_lost && block.is_mine){
       return(
-        <div style={ styles.flipped } id={`block-${block.index}`}>
+        <div
+          style={ styles.flipped }
+          className={`block-${block.index} mine-${block.index}`}>
           <Icon type="fire" theme="twoTone" twoToneColor="#f5222d" style={{ fontSize: '20px' }} />
         </div>
       )
@@ -82,7 +86,7 @@ class Block extends Component {
     if(block.is_flagged){
       return(
         <div
-          id={`block-${block.index}`}
+          className={`block-${block.index} flag-${block.index}`}
           onContextMenu={ (e) => { e.preventDefault(); this.onFlag(block);} }
           style={ this.props.game.has_won ? styles.winner : styles.unflipped }>
           <Icon type="flag" style={{ fontSize: '20px' }} />
@@ -93,7 +97,7 @@ class Block extends Component {
     // 4. Handle unflipped blocks
     return(
       <div
-        id={`block-${block.index}`}
+        className={`block-${block.index}`}
         style={ styles.unflipped }
         onClick={this.onFlip.bind(this, block)}
         onContextMenu={ (e) => { e.preventDefault(); this.onFlag(block);} } />

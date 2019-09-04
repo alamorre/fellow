@@ -39,7 +39,7 @@ module.exports = {
   /**
    * Test if 404 errors are caught and recovered
    */
-  'The board detects when a user won': function(browser) {
+  'The server provides when a user won': function(browser) {
     // Go to the /foo which does not exist
     browser
       .url(`http://localhost:8080/${gameID}`)

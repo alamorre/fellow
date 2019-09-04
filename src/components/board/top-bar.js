@@ -28,7 +28,7 @@ class TopBar extends Component {
             onClick={() => history.push('/')}
             style={{ fontSize: '20px', float: 'right', cursor: 'pointer' }}>
             {
-              gameLoading && <Icon type="loading" />
+              gameLoading && <Icon id='request-loading' type="loading" />
             }
             {
               (!gameLoading && game.has_lost) &&
