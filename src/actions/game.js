@@ -71,6 +71,12 @@ export const fetchGame = (id, successFunc, errorFunc) => dispatch =>  {
 * This function will flip a block and then update the game state
 */
 export const flipBlock = (data) => (dispatch, getState) =>  {
+  // Ensure another request is not occuring
+  if(getState().loaders.gameLoading){
+    ErrorNotification('Too Fast!', 'Please wait for your last request to finish.')
+    return;
+  }
+
   // Start the game loader
   dispatch({
     type: str.START_GAME_LOADING
@@ -108,6 +114,12 @@ export const flipBlock = (data) => (dispatch, getState) =>  {
 * This function will flag a block and then update the game state
 */
 export const flagBlock = (data) => (dispatch, getState) =>  {
+  // Ensure another request is not occuring
+  if(getState().loaders.gameLoading){
+    ErrorNotification('Too Fast!', 'Please wait for your last request to finish.')
+    return;
+  }
+
   // Start the game loader
   dispatch({
     type: str.START_GAME_LOADING

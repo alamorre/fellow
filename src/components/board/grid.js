@@ -44,8 +44,7 @@ class Grid extends Component {
 
   render() {
     // Gather the necessary data
-    const { game } = this.props
-    const { has_won } = game
+    const { game, loaders } = this.props
 
     // Return a loading component if loading
     if(!game.blocks){
@@ -54,7 +53,7 @@ class Grid extends Component {
 
     // Else return the blocks in a grid formation
     return(
-      <Row id={ has_won ? `game-won-${game.id}` : `game-grid-${game.id}` }>
+      <Row id={ game.has_won ? `game-won-${game.id}` : `game-grid-${game.id}` }>
         { this.renderBlocks(game.blocks) }
       </Row>
     )
@@ -62,7 +61,9 @@ class Grid extends Component {
 }
 
 function mapStateToProps(state){
-  return { game: state.game }
+  return {
+    game: state.game
+  }
 }
 
 function mapDispatchToProps(dispatch){

@@ -2,7 +2,7 @@ import axios from 'axios';
 var gameID;
 
 module.exports = {
-  "tags": ["flip", 'sweep'],
+  "tags": ["flip", 'sweep', 'throttle', 'loading'],
 
   before: function(browser, done) {
     // Remove foo bar people
@@ -48,9 +48,7 @@ module.exports = {
     // Assert a new game was made
     browser
       .click('.block-1')
-      .waitForElementVisible('#request-loading', 5000, 'The game loads when a request is made')
-      .waitForElementVisible('.flip-20', 15000, 'The next row is flipped')
-      .waitForElementVisible('.flip-30', 2000, 'The third row is flipped')
-      .waitForElementVisible('.flip-90', 4000, 'The last row is flipped');
+      .click('.block-99')
+      .waitForElementVisible('.ant-notification-notice', 5000, 'The game stops flipping another block');
   }
 }
