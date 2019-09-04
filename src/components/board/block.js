@@ -46,17 +46,16 @@ class Block extends Component {
     this.props.flipBlock(data)
   }
 
+  /**
+  * There are four tpyes of blocks to render
+  * 1. Flipped blocks
+  * 2. Flipped mines (render all at once)
+  * 3. Flagged blocks
+  * 4. Unflipped blocks
+  */
   render(){
     // Gather the necessary data
     const { block } = this.props
-
-    /**
-    * There are four tpyes of blocks
-    * 1. Flipped blocks
-    * 2. Flipped mines (render all at once)
-    * 3. Flagged blocks
-    * 4. Unflipped blocks
-    */
 
     // 1. Handle flipped blocks
     if(block.is_flipped && !block.is_mine){
