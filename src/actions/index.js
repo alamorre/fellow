@@ -1,6 +1,7 @@
+// Root URL for API endpoints
 export const ROOT_URL = 'http://127.0.0.1:8000'
 
-// Game / board data
+// New Game & Board data to update
 export const NEW_GAME = 'NEW_GAME'
 
 // Loading the game

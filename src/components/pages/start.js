@@ -7,7 +7,7 @@ import history from '../../functions/history'
 import { newGame } from '../../actions/game'
 
 // Import components
-import { Icon } from 'antd'
+import PageLoader from '../loader'
 import { ErrorNotification } from '../notifications'
 
 class Start extends Component {
@@ -33,15 +33,7 @@ class Start extends Component {
   }
 
   render(){
-    return(
-      <div style={{ position: 'fixed', top: '20%', width: '78%', textAlign: 'center' }}>
-        <Icon className='horizontal-flip' type="loading" style={{ fontSize: 140, color: 'rgba(0, 0, 0, 0.65)', position: 'relative', left: '90px' }} spin />
-        <Icon type="loading" style={{ fontSize: 180, color: '#1890ff', position: 'relative', left: '-70px', top: '15px' }} spin />
-        <div style={{position: 'relative', top: '-90px', fontSize: '24px'}}>
-          <b>Loading</b>
-        </div>
-      </div>
-    )
+    return <PageLoader />
   }
 }
 

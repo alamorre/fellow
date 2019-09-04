@@ -2,6 +2,7 @@ import * as str from '../actions'
 import history from '../functions/history'
 import { hasWon, hasLost, countMinesLeft } from '../functions/progress'
 
+// Keep track of mines left, and if the user has won or lost
 const initialState = {
   minesLeft: 12,
   hasLost: false,

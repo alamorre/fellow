@@ -1,8 +1,8 @@
 import * as str from '../actions'
 import history from '../functions/history'
 
-const initialState = {
-}
+// Start the game state with nothing (i.e. empty)
+const initialState = {}
 
 export default function(state = initialState, action){
 

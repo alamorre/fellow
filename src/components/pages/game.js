@@ -8,7 +8,10 @@ class Game extends Component {
 
     return(
       <div>
+        {/* Top Bar of the Board */}
         <TopBar />
+
+        {/* Board Grid */}
         <Grid gameID={id} />
       </div>
     )

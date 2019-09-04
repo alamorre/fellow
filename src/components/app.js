@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 // Handle the urls and browser history
 import { Router, Route, Switch } from 'react-router-dom'
-import history from '../functions/history';
+import history from '../functions/history'
 
+// Import Page components
 import { Game, Start } from './pages'
 
-export default class App extends Component {
+class App extends Component {
   render() {
     return (
       <Router history={history}>
@@ -18,3 +19,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default App

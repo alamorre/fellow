@@ -40,10 +40,17 @@ class Grid extends Component {
   render() {
     const { game } = this.props
 
+    // Return a loading component if loading
     if(!this.props.game.blocks){
-      return <div>Loading...</div>
+      return (
+        <Row>
+          <Col xs={2} sm={2} md={7} />
+          <div>Loading...</div>
+        </Row>
+      )
     }
 
+    // Else return the blocks in a grid formation
     return(
       <Row>
         {/* 10 Blocks in this row */}

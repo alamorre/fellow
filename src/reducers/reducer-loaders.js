@@ -1,6 +1,7 @@
 import * as str from '../actions'
 import history from '../functions/history'
 
+// Keep track of game parts that are loading
 const initialState = {
   gameLoading: false
 }
