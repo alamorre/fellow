@@ -95,7 +95,7 @@ class Block extends Component {
       return;
     }
     if(this.props.progress.minesLeft === 0){
-      ErrorNotification('Oops! You have not more mines left, free one up!')
+      ErrorNotification('Oops! You have not more flags left, free one up!')
       return;
     }
 
