@@ -1,25 +1,20 @@
-# ReduxSimpleStarter
+# Fellow
+Front-end web GUI for the Fellow interview game!
 
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
+### Before Starting
+Make sure you have the server running so there is something to connect with.
+
+Go to https://github.com/alamorre/fellow-core and follow README.md at the bottom.
 
 ### Getting Started
-
-There are two methods for getting started with this repo.
-
-#### Familiar with Git?
-Checkout this repo, install dependencies, then start the gulp process with the following:
+Assuming fellow-core is up and running on http://127.0.0.1:8000 locally, you can now run fellow.
 
 ```
-> git clone https://github.com/StephenGrider/ReduxSimpleStarter.git
-> cd ReduxSimpleStarter
-> npm install
-> npm start
+git clone https://github.com/alamorre/fellow.git
+cd fellow
+yarn install
+yarn start
 ```
 
-#### Not Familiar with Git?
-Click [here](https://github.com/StephenGrider/ReactStarter/releases) then download the .zip file.  Extract the contents of the zip file, then open your terminal, change to the project directory, and:
-
-```
-> npm install
-> npm start
-```
+### Running Automation Tests
+This part should be done today...
