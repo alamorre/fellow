@@ -63,6 +63,11 @@ export const fetchGame = (id, successFunc, errorFunc) => dispatch =>  {
 * This function will flip a block and then update the game state
 */
 export const flipBlock = (data) => dispatch =>  {
+  // Start the game loader
+  dispatch({
+    type: str.START_GAME_LOADING
+  })
+
   // Make the API request
   const request = axios({
     method: 'PATCH',
@@ -76,11 +81,21 @@ export const flipBlock = (data) => dispatch =>  {
       type: str.NEW_GAME,
       payload: response.data
     })
+
+    // Start the game loader
+    dispatch({
+      type: str.STOP_GAME_LOADING
+    })
   })
 
   // Handle the request error locally in s callback
   .catch((error) => {
     console.log(error)
+
+    // Start the game loader
+    dispatch({
+      type: str.STOP_GAME_LOADING
+    })
   })
 }
 
@@ -88,6 +103,11 @@ export const flipBlock = (data) => dispatch =>  {
 * This function will flag a block and then update the game state
 */
 export const flagBlock = (data) => dispatch =>  {
+  // Start the game loader
+  dispatch({
+    type: str.START_GAME_LOADING
+  })
+
   // Make the API request
   const request = axios({
     method: 'PATCH',
@@ -101,10 +121,20 @@ export const flagBlock = (data) => dispatch =>  {
       type: str.NEW_GAME,
       payload: response.data
     })
+
+    // Stop the game loading
+    dispatch({
+      type: str.STOP_GAME_LOADING
+    })
   })
 
   // Handle the request error locally in s callback
   .catch((error) => {
     console.log(error)
+
+    // Stop the game loading
+    dispatch({
+      type: str.STOP_GAME_LOADING
+    })
   })
 }

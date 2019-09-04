@@ -2,14 +2,23 @@ import * as str from '../actions'
 import history from '../functions/history'
 
 const initialState = {
+  gameLoading: false
 }
 
 export default function(state = initialState, action){
 
   switch (action.type) {
     // Update the entire game obj
-    case str.NEW_GAME:
-      return action.payload;
+    case str.START_GAME_LOADING:
+      return {
+        ...state,
+        gameLoading: true
+      };
+    case str.STOP_GAME_LOADING:
+      return {
+        ...state,
+        gameLoading: false
+      };
 
     // If missed, change nothing
     default:

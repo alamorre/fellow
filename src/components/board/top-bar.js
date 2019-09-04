@@ -8,6 +8,7 @@ import { Row, Col, Icon } from 'antd'
 class TopBar extends Component {
   render(){
     const { progress } = this.props
+    const { gameLoading } = this.props.loaders
 
     return(
       <Row style={{ height: '42px', paddingTop: '8px' }}>
@@ -22,14 +23,13 @@ class TopBar extends Component {
             Mines Left: { progress.minesLeft }
           </span>
 
+          {/* Render the game as Loading, Lost or Fine */}
           <span
             onClick={() => history.push('/')}
             style={{ fontSize: '20px', float: 'right', cursor: 'pointer' }}>
-            {
-              progress.hasLost ?
-              <Icon type="frown" /> :
-              <Icon type="smile" />
-            }
+            { gameLoading && <Icon type="loading" /> }
+            { (!gameLoading && progress.hasLost) && <Icon type="frown" /> }
+            { (!gameLoading && !progress.hasLost) && <Icon type="smile" /> }
           </span>
         </Col>
 
@@ -43,6 +43,7 @@ class TopBar extends Component {
 function mapStateToProps(state){
   return {
     game: state.game,
+    loaders: state.loaders,
     progress: state.progress
   }
 }
