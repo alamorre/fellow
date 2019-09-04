@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 // Import functions
+import { countNearbyMines } from '../../functions/nearby-mines'
 import { flipBlock, flagBlock } from '../../actions/game'
 import { ErrorNotification } from '../notifications'
 
@@ -11,90 +12,17 @@ import { Icon } from 'antd'
 
 class Block extends Component {
   /**
-  * This function will count the adjacent mines to an index
+  * This function toggles is_flagged on this block
   */
-  countAdjacentMines(block){
-    const { index } = block
-    const { game } = this.props
-
-    var count = 0
-
-    // Check top left
-    if(index > 9 && index % 10 !== 0){
-      const topLeft = index - 11
-      if(game.blocks[topLeft].is_mine){
-        count = count + 1
-      }
-    }
-
-    // Check top
-    if(index > 9){
-      const top = index - 10
-      if(game.blocks[top].is_mine){
-        count = count + 1
-      }
-    }
-
-    // Check top right
-    if(index > 9 && index % 10 !== 9){
-      const topRight = index - 9
-      if(game.blocks[topRight].is_mine){
-        count = count + 1
-      }
-    }
-
-    // Check left
-    if(index % 10 !== 0){
-      const left = index - 1
-      if(game.blocks[left].is_mine){
-        count = count + 1
-      }
-    }
-
-    // Check left
-    if(index % 10 !== 9){
-      const right = index + 1
-      if(game.blocks[right].is_mine){
-        count = count + 1
-      }
-    }
-
-    // Check bottom left
-    if(index < 90 && index % 10 !== 0){
-      const bottomLeft = index + 9
-      if(game.blocks[bottomLeft].is_mine){
-        count = count + 1
-      }
-    }
-
-    // Check bottom left
-    if(index < 90){
-      const bottom = index + 10
-      if(game.blocks[bottom].is_mine){
-        count = count + 1
-      }
-    }
-
-    // Check bottom left
-    if(index < 90 && index % 10 !== 9){
-      const bottomRight = index + 11
-      if(game.blocks[bottomRight].is_mine){
-        count = count + 1
-      }
-    }
-
-    // Return the count
-    return count
-  }
-
-  // Send data that toggles the flag
   onFlag(block){
-    // Make sure the user is allowed to flag
+    // Make sure the game is not over
     if(this.props.progress.hasWon || this.props.progress.hasLost){
       ErrorNotification('The game is over...')
       return;
     }
-    if(this.props.progress.minesLeft === 0){
+
+    // Make sure the user isn't using flag 0 (i.e. no more to set)
+    if(this.props.progress.minesLeft === 0 && !block.is_flagged){
       ErrorNotification('Oops! You have not more flags left, free one up!')
       return;
     }
@@ -104,7 +32,9 @@ class Block extends Component {
     this.props.flagBlock(data)
   }
 
-  // Set is flagged to true
+  /**
+  * This function sets is_flipped to true on this block
+  */
   onFlip(block){
     // Make sure the user is allowed to flip
     if(this.props.progress.hasWon || this.props.progress.hasLost){
@@ -118,10 +48,19 @@ class Block extends Component {
   }
 
   render(){
+    // Gather the necessary data
     const { block } = this.props
-    const mineCount = this.countAdjacentMines(block)
+    const mineCount = countNearbyMines(block, this.props.game)
 
-    // Handle flipped
+    /**
+    * There are four tpyes of blocks
+    * 1. Flipped blocks
+    * 2. Flipped mines (render all at once)
+    * 3. Flagged blocks
+    * 4. Unflipped blocks
+    */
+
+    // 1. Handle flipped blocks
     if(block.is_flipped && !block.is_mine){
       return(
         <div style={ styles.flipped }>
@@ -130,7 +69,7 @@ class Block extends Component {
       )
     }
 
-    // If the user has lost, show all mines
+    // 2. Handle flipped mines (render all at once)
     if(this.props.progress.hasLost && block.is_mine){
       return(
         <div style={ styles.flipped }>
@@ -139,7 +78,7 @@ class Block extends Component {
       )
     }
 
-    // Handle flipped
+    // 3. Handle flagged blocks
     if(block.is_flagged){
       return(
         <div
@@ -150,7 +89,7 @@ class Block extends Component {
       )
     }
 
-    // Handle empty block
+    // 4. Handle unflipped blocks
     return(
       <div
         style={ styles.unflipped }
@@ -161,6 +100,7 @@ class Block extends Component {
 }
 
 const styles = {
+  // Style for blocks that are flipped
   flipped: {
     width: '100%',
     height: '32px',
@@ -170,6 +110,7 @@ const styles = {
     textAlign: 'center',
     border: '1px solid black',
   },
+  // Style for blocks that are unflipped
   unflipped: {
     width: '100%',
     height: '32px',
@@ -179,6 +120,7 @@ const styles = {
     background: '#e8e8e8',
     border: '1px solid black',
   },
+  // Style for mines when the game has been won
   winner: {
     width: '100%',
     height: '32px',
@@ -198,7 +140,7 @@ function mapStateToProps(state){
 }
 
 function mapDispatchToProps(dispatch){
-return bindActionCreators({ flipBlock, flagBlock }, dispatch)
+  return bindActionCreators({ flipBlock, flagBlock }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Block)
