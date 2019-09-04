@@ -7,7 +7,7 @@ import { Row, Col, Icon } from 'antd'
 
 class TopBar extends Component {
   render(){
-    const { progress } = this.props
+    const { game } = this.props
     const { gameLoading } = this.props.loaders
 
     return(
@@ -20,7 +20,7 @@ class TopBar extends Component {
           <span
             onClick={() => history.push('/')}
             style={{ fontSize: '20px', cursor: 'pointer' }}>
-            Mines Left: { progress.minesLeft }
+            Flags Left: { game.flags_left }
           </span>
 
           {/* Render the game as Loading, Lost or Fine */}
@@ -28,8 +28,8 @@ class TopBar extends Component {
             onClick={() => history.push('/')}
             style={{ fontSize: '20px', float: 'right', cursor: 'pointer' }}>
             { gameLoading && <Icon type="loading" /> }
-            { (!gameLoading && progress.hasLost) && <Icon id='game-lost-icon' type="frown" /> }
-            { (!gameLoading && !progress.hasLost) && <Icon id='game-okay-icon' type="smile" /> }
+            { (!gameLoading && game.has_lost) && <Icon id='game-lost-icon' type="frown" /> }
+            { (!gameLoading && !game.has_lost) && <Icon id='game-okay-icon' type="smile" /> }
           </span>
         </Col>
 
@@ -43,8 +43,7 @@ class TopBar extends Component {
 function mapStateToProps(state){
   return {
     game: state.game,
-    loaders: state.loaders,
-    progress: state.progress
+    loaders: state.loaders
   }
 }
 

@@ -45,7 +45,7 @@ class Grid extends Component {
   render() {
     // Gather the necessary data
     const { game } = this.props
-    const { hasWon } = this.props.progress
+    const { hasWon } = game
 
     // Return a loading component if loading
     if(!game.blocks){
@@ -62,10 +62,7 @@ class Grid extends Component {
 }
 
 function mapStateToProps(state){
-  return {
-    game: state.game,
-    progress: state.progress
-  }
+  return { game: state.game }
 }
 
 function mapDispatchToProps(dispatch){

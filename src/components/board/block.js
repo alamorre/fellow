@@ -16,13 +16,13 @@ class Block extends Component {
   */
   onFlag(block){
     // Make sure the game is not over
-    if(this.props.progress.hasWon || this.props.progress.hasLost){
+    if(this.props.game.has_won || this.props.game.has_lost){
       ErrorNotification('The game is over...')
       return;
     }
 
     // Make sure the user isn't using flag 0 (i.e. no more to set)
-    if(this.props.progress.minesLeft === 0 && !block.is_flagged){
+    if(this.props.game.flags_left === 0 && !block.is_flagged){
       ErrorNotification('Oops! You have not more flags left, free one up!')
       return;
     }
@@ -37,7 +37,7 @@ class Block extends Component {
   */
   onFlip(block){
     // Make sure the user is allowed to flip
-    if(this.props.progress.hasWon || this.props.progress.hasLost){
+    if(this.props.game.has_won || this.props.game.has_lost){
       ErrorNotification('The game is over...')
       return;
     }
@@ -70,7 +70,7 @@ class Block extends Component {
     }
 
     // 2. Handle flipped mines (render all at once)
-    if(this.props.progress.hasLost && block.is_mine){
+    if(this.props.game.has_lost && block.is_mine){
       return(
         <div style={ styles.flipped } id={`block-${block.index}`}>
           <Icon type="fire" style={{ fontSize: '20px', color: 'red' }} />
@@ -84,7 +84,7 @@ class Block extends Component {
         <div
           id={`block-${block.index}`}
           onContextMenu={ (e) => { e.preventDefault(); this.onFlag(block);} }
-          style={ this.props.progress.hasWon ? styles.winner : styles.unflipped }>
+          style={ this.props.game.has_won ? styles.winner : styles.unflipped }>
           <Icon type="flag" style={{ fontSize: '20px' }} />
         </div>
       )
@@ -136,8 +136,7 @@ const styles = {
 
 function mapStateToProps(state){
   return {
-    game: state.game,
-    progress: state.progress
+    game: state.game
   }
 }
 

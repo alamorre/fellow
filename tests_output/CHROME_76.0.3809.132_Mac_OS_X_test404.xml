@@ -5,9 +5,9 @@
 
   <testsuite name="test404"
     errors="0" failures="0" hostname="" id="" package="test404" skipped="0"
-    tests="1" time="6.349" timestamp="">
+    tests="1" time="4.542" timestamp="">
   
-    <testcase name="Can create a new game URL and share its URL" classname="test404" time="6.349" assertions="3">
+    <testcase name="Can create a new game URL and share its URL" classname="test404" time="4.542" assertions="3">
 
     
 
