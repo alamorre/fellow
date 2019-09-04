@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 // Import functions
-import { countNearbyMines } from '../../functions/nearby-mines'
 import { flipBlock, flagBlock } from '../../actions/game'
 import { ErrorNotification } from '../notifications'
 
@@ -50,7 +49,6 @@ class Block extends Component {
   render(){
     // Gather the necessary data
     const { block } = this.props
-    const mineCount = countNearbyMines(block, this.props.game)
 
     /**
     * There are four tpyes of blocks
@@ -64,7 +62,9 @@ class Block extends Component {
     if(block.is_flipped && !block.is_mine){
       return(
         <div style={ styles.flipped } id={`block-${block.index}`}>
-          { mineCount > 0 && mineCount }
+          <div style={ styles[block.nearby_mines] }>
+            { (block.nearby_mines && block.nearby_mines > 0) && block.nearby_mines }
+          </div>
         </div>
       )
     }
@@ -131,7 +131,17 @@ const styles = {
     textAlign: 'center',
     background: '#d9f7be',
     border: '1px solid black',
-  }
+  },
+  // Colors for the numbers or nearby mines
+  0: { color: 'white' },
+  1: { color: 'purple' },
+  2: { color: 'blue' },
+  3: { color: 'green' },
+  4: { color: 'red' },
+  5: { color: 'orange' },
+  6: { color: 'yellow' },
+  7: { color: 'brown' },
+  8: { color: 'black' },
 }
 
 function mapStateToProps(state){
