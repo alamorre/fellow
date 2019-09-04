@@ -6,7 +6,7 @@ import { Icon } from 'antd'
 class PageLoader extends Component {
   render(){
     return(
-      <div style={{ position: 'relative', left: '50%' }}>
+      <div style={{ position: 'relative', left: '50%' }} id='page-loader'>
         <Icon
           spin={true}
           type="loading"

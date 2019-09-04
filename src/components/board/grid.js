@@ -52,7 +52,7 @@ class Grid extends Component {
     }
 
     // Else return the blocks in a grid formation
-    return <Row>{ this.renderBlocks(game.blocks) }</Row>
+    return <Row id={`game-grid-${game.id}`}>{ this.renderBlocks(game.blocks) }</Row>
   }
 }
 
