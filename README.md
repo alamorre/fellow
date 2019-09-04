@@ -1,6 +1,13 @@
 # Fellow
 Front-end web GUI for the Fellow interview game!
 
+### Implementation Notes
+As requested, the client does not store game data such that it the can be exploited or cheated.
+
+For this reason, the client DOES NOT store any mine locations - unless the mine is already flipped.
+
+However, the client DOES store block locations, and the number of neighbouring mines, like the original game.
+
 ### Before Starting
 Make sure you have the server running so there is something to connect with.
 
@@ -25,4 +32,4 @@ Once you have the project running, you can run the automation tests.
 yarn test
 ```
 
-Note: the tests only run on chrome driver.
+Note: the tests run on chrome driver.
