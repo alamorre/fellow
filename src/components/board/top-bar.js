@@ -28,8 +28,8 @@ class TopBar extends Component {
             onClick={() => history.push('/')}
             style={{ fontSize: '20px', float: 'right', cursor: 'pointer' }}>
             { gameLoading && <Icon type="loading" /> }
-            { (!gameLoading && progress.hasLost) && <Icon type="frown" /> }
-            { (!gameLoading && !progress.hasLost) && <Icon type="smile" /> }
+            { (!gameLoading && progress.hasLost) && <Icon id='game-lost-icon' type="frown" /> }
+            { (!gameLoading && !progress.hasLost) && <Icon id='game-okay-icon' type="smile" /> }
           </span>
         </Col>
 

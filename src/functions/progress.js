@@ -44,12 +44,9 @@ export function hasWon(game){
   var hasWon = true
   const allBlocks = game.blocks ? game.blocks : []
 
-  // Find any exception to detemine the user has not won
+  // Find any exception where a mine is not (properly) flagged yet
   allBlocks.map(block => {
     if(block.is_mine && !block.is_flagged){
-      hasWon = false
-    }
-    if(!block.is_mine && !block.is_flipped){
       hasWon = false
     }
   })

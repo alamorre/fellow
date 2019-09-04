@@ -1,5 +1,3 @@
-var savedUrl = '';
-
 module.exports = {
   "tags": ["new", "root", "share", "url"],
 

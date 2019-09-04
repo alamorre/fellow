@@ -1,5 +1,3 @@
-var savedUrl = '';
-
 module.exports = {
   "tags": ["404", "error", "url", "new"],
 
@@ -13,7 +11,7 @@ module.exports = {
       .waitForElementVisible('#page-loader', 2000, 'Assert the page starts by loading')
       .pause(3500); // Pause for the redirect
 
-    // Save the new dealID in URL
+    // Save the new gameID in URL
     let gameID;
     browser.url(function(result) {
       gameID = result.value.split('/').pop();
