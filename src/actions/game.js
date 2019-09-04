@@ -1,6 +1,9 @@
 import axios from 'axios'
 import * as str from './index'
 
+import history from '../functions/history'
+import { ErrorNotification } from '../components/notifications'
+
 /**
 * This function creates a new game for the user
 */
@@ -54,7 +57,12 @@ export const fetchGame = (id, successFunc, errorFunc) => dispatch =>  {
 
   // Handle the request error locally in s callback
   .catch((error) => {
-    console.log(error)
+    // Redirect on 404 with error notification
+    if(error.response.status === 404){
+      history.push('/')
+      ErrorNotification('Oops! This Game URL is not valid.', 'Here is a new game.')
+    }
+
     errorFunc(error.response.data)
   })
 }
