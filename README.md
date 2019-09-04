@@ -16,5 +16,13 @@ yarn install
 yarn start
 ```
 
+you can expect the project to be running on http://localhost:8080 locally.
+
 ### Running Automation Tests
-This part should be done today...
+Once you have the project running, you can run the automation tests.
+
+```
+yarn test
+```
+
+Note: the tests only run on chromedriver.
