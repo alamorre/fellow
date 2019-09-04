@@ -4,7 +4,7 @@ import { hasWon, hasLost, countMinesLeft } from '../functions/progress'
 
 // Keep track of mines left, and if the user has won or lost
 const initialState = {
-  minesLeft: 12,
+  minesLeft: 0,
   hasLost: false,
   hasWon: false
 }

@@ -7,17 +7,22 @@ import { fetchGame } from '../../actions/game'
 
 // Import the imported and developed components
 import Block from './block'
-import { Row, Col } from 'antd';
+import { Row, Col } from 'antd'
+import PageLoader from '../loader'
 
 class Grid extends Component {
+  /**
+  * This function will fetch the game data if missing (upon open)
+  */
   componentDidMount(){
-    // Fetch the game if it's not it redux state
     if(!this.props.game.id && this.props.gameID){
       this.props.fetchGame(this.props.gameID, () => {}, () => {})
     }
   }
 
-
+  /**
+  * This function render each block in a grid formation
+  */
   renderBlocks(blocks){
     return blocks.map((block, index) => {
       return (
@@ -38,25 +43,16 @@ class Grid extends Component {
   }
 
   render() {
+    // Gather the necessary data
     const { game } = this.props
 
     // Return a loading component if loading
-    if(!this.props.game.blocks){
-      return (
-        <Row>
-          <Col xs={2} sm={2} md={7} />
-          <div>Loading...</div>
-        </Row>
-      )
+    if(!game.blocks){
+      return <PageLoader />
     }
 
     // Else return the blocks in a grid formation
-    return(
-      <Row>
-        {/* 10 Blocks in this row */}
-        {this.renderBlocks(game.blocks)}
-      </Row>
-    )
+    return <Row>{ this.renderBlocks(game.blocks) }</Row>
   }
 }
 
