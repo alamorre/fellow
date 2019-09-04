@@ -7,7 +7,7 @@ Make sure you have the server running so there is something to connect with.
 Go to https://github.com/alamorre/fellow-core and follow README.md at the bottom.
 
 ### Getting Started
-Assuming fellow-core is up and running on http://127.0.0.1:8000 locally, you can now run fellow.
+Assuming fellow-core is up and running (locally) on http://127.0.0.1:8000, you can now start fellow.
 
 ```
 git clone https://github.com/alamorre/fellow.git
