@@ -25,4 +25,4 @@ Once you have the project running, you can run the automation tests.
 yarn test
 ```
 
-Note: the tests only run on chromedriver.
+Note: the tests only run on chrome driver.
