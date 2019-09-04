@@ -6,8 +6,7 @@
   "repository": "git@github.com:StephenGrider/ReduxSimpleStarter.git",
   "scripts": {
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
-    "test:watch": "npm run test -- --watch",
+    "test": "nightwatch -c nightwatch.conf.js",
     "build": "webpack -p --define process.env.NODE_ENV='\"production\"' --progress --colors"
   },
   "author": "",
@@ -24,7 +23,9 @@
     "antd": "^3.23.1",
     "axios": "^0.19.0",
     "babel-preset-stage-1": "^6.1.18",
+    "chromedriver": "^76.0.1",
     "lodash": "3.10.1",
+    "nightwatch": "^1.2.2",
     "react": "16.3.2",
     "react-dom": "16.3.2",
     "react-redux": "5.0.7",
