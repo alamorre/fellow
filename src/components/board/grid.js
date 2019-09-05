@@ -36,7 +36,7 @@ class Grid extends Component {
           </Col>
 
           {/* Render new row after 10 blocks */}
-          { index % 10 === 9 && <Col lg={7} md={2} style={{ height: '32px' }}/> }
+          { index % 10 === 9 && <Col lg={7} md={4} sm={4} xs={4} style={{ height: '32px' }}/> }
         </div>
       )
     })
