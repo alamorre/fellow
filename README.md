@@ -9,7 +9,7 @@ For this reason, the client DOES NOT store any mine locations - unless the mine 
 However, the client DOES store block locations, and the number of neighbouring mines, like the original game.
 
 ### Before Starting
-Make sure you have the fellow-core](https://github.com/alamorre/fellow-core) server running so the API calls can complete.
+Make sure you have the [fellow-core](https://github.com/alamorre/fellow-core) server running so the API calls can complete.
 
 Go to [fellow-core](https://github.com/alamorre/fellow-core) and follow the README.md file.
 
